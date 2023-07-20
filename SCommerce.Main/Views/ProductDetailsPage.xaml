@@ -8,7 +8,23 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Page.TopAppBar>
+        <CommandBar IsOpen="True" IsSticky="True" VerticalContentAlignment="Stretch">
+            <CommandBar.Content>
+                <TextBlock Text="SCommerce"
+                           Foreground="DarkBlue"
+                           FontSize="20"
+                           FontWeight="Black"
+                           VerticalAlignment="Center"
+                           Margin="20,0"/>
+            </CommandBar.Content>
+
+            <AppBarButton Label="Cart" Icon="AllApps"/>
+        </CommandBar>
+    </Page.TopAppBar>
+    
+    <ScrollViewer>
+        <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
@@ -20,11 +36,49 @@
         </Grid.ColumnDefinitions>
         
         <TextBlock Text="Product Name"
+                   TextWrapping="Wrap"
                    FontSize="50"
                    FontWeight="SemiBold"
                    Foreground="#333333"
-                   Margin="20,20,20,40"/>
-        
-        <Image Source="ms-appx:///Assets/Images/shirt1.jpg" Grid.Row="1"/>
+                   Margin="20,20,20,40"
+                   Grid.ColumnSpan="2"/>
+
+        <StackPanel Grid.Row="1" Padding="20,0">
+            <Border Margin="0,0,0,30"
+                    MaxHeight="300"
+                    VerticalAlignment="Top"
+                    CornerRadius="45">
+                <Image Source="ms-appx:///Assets/Images/shirt1.jpg"
+                       Stretch="UniformToFill"/>
+            </Border>
+
+            <StackPanel Orientation="Horizontal">
+                <Border CornerRadius="15" Height="100" Width="100" Margin="0,0,10,0">
+                    <Image Source="ms-appx:///Assets/Images/shirt1.jpg" Stretch="UniformToFill"/>
+                </Border>
+
+                <Border CornerRadius="15" Height="100" Width="100" Margin="0,0,10,0">
+                    <Image Source="ms-appx:///Assets/Images/shirt2.jpg" Stretch="UniformToFill"/>
+                </Border>
+
+                <Border CornerRadius="15" Height="100" Width="100">
+                    <Image Source="ms-appx:///Assets/Images/shirt3.jpg" Stretch="UniformToFill"/>
+                </Border>
+            </StackPanel>
+
+            <TextBlock Text="R$80,50" FontSize="28" FontWeight="SemiBold" Margin="0,20"/>
+
+            <Button Content="Add to cart" FontSize="20"/>
+        </StackPanel>
+
+        <TextBlock Grid.Row="1"
+                   Grid.Column="1"
+                   TextWrapping="Wrap"
+                   FontSize="20"
+                   Foreground="#666666"
+                   Margin="20,0"
+                   Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse magna turpis, egestas sed leo ut, blandit porttitor ligula. Vivamus a sodales dui. Integer dapibus eros quis lectus blandit, a faucibus augue scelerisque. Integer metus libero, varius at leo sed, semper cursus arcu. Pellentesque posuere nisi vel mi convallis pharetra. Vivamus sed elementum quam, id tempor ipsum. Nam neque eros, varius non nunc eget, congue consequat nunc. Integer convallis pulvinar urna semper ultrices. Etiam ullamcorper pharetra aliquet. In et leo dapibus, pellentesque magna ac, finibus purus. Nunc pulvinar lacus lectus, at mattis ipsum rutrum ac."
+                   />
     </Grid>
+    </ScrollViewer>
 </Page>
