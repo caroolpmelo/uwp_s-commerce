@@ -4,10 +4,24 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:SCommerce.Main.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:converters="using:SCommerce.Main.Converters"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <converters:DoubleToCurrencyFormatConverter x:Key="CurrencyConverter"/>
+
+        <ItemsPanelTemplate x:Key="ImagesPanelTemplate">
+            <ItemsStackPanel Orientation="Horizontal"/>
+        </ItemsPanelTemplate>
+
+        <DataTemplate x:Key="ImagesItemTemplate" x:DataType="x:String">
+            <Border CornerRadius="15" Height="100" Width="100">
+                <Image Source="{x:Bind}" Stretch="UniformToFill"/>
+            </Border>
+        </DataTemplate>
+    </Page.Resources>
+    
     <Page.TopAppBar>
         <CommandBar IsOpen="True" IsSticky="True" VerticalContentAlignment="Stretch">
             <CommandBar.Content>
@@ -48,25 +62,19 @@
                     MaxHeight="300"
                     VerticalAlignment="Top"
                     CornerRadius="45">
-                <Image Source="{x:Bind ViewModel.SelectedImage}"
+                <Image Source="{x:Bind ViewModel.SelectedImage, Mode=OneWay}"
                        Stretch="UniformToFill"/>
             </Border>
 
-            <StackPanel Orientation="Horizontal">
-                <Border CornerRadius="15" Height="100" Width="100" Margin="0,0,10,0">
-                    <Image Source="ms-appx:///Assets/Images/shirt1.jpg" Stretch="UniformToFill"/>
-                </Border>
+            <ListView ItemsSource="{x:Bind ViewModel.Images}"
+                      ItemsPanel="{StaticResource ImagesPanelTemplate}"
+                      ItemTemplate="{StaticResource ImagesItemTemplate}"
+                      SelectedItem="{x:Bind ViewModel.SelectedImage, Mode=TwoWay}"/>
 
-                <Border CornerRadius="15" Height="100" Width="100" Margin="0,0,10,0">
-                    <Image Source="ms-appx:///Assets/Images/shirt2.jpg" Stretch="UniformToFill"/>
-                </Border>
-
-                <Border CornerRadius="15" Height="100" Width="100">
-                    <Image Source="ms-appx:///Assets/Images/shirt3.jpg" Stretch="UniformToFill"/>
-                </Border>
-            </StackPanel>
-
-            <TextBlock Text="{x:Bind ViewModel.Price}" FontSize="28" FontWeight="SemiBold" Margin="0,20"/>
+            <TextBlock FontSize="28" FontWeight="SemiBold" Margin="0,20">
+                <Run Text="R$" />
+                <Run Text="{x:Bind ViewModel.Price, Converter={StaticResource CurrencyConverter}}"/>
+            </TextBlock>
 
             <Button Content="Add to cart" FontSize="20"/>
         </StackPanel>

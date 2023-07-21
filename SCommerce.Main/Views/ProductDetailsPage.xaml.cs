@@ -5,10 +5,12 @@ namespace SCommerce.Main.Views
 {
     public sealed partial class ProductDetailsPage : Page
     {
-        public ProductDetailsPageViewModel ViewModel => new ProductDetailsPageViewModel();
+        public ProductDetailsPageViewModel ViewModel => (ProductDetailsPageViewModel)this.DataContext;
+        
         public ProductDetailsPage()
         {
             this.InitializeComponent();
+            this.DataContext = new ProductDetailsPageViewModel();
         }
     }
 }
