@@ -1,7 +1,10 @@
 ﻿using Prism.Commands;
+using Prism.Events;
 using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
+using PrismSample.Events;
 using PrismSample.Services;
+using System.Collections.Generic;
 
 namespace PrismSample.ViewModels
 {
@@ -9,6 +12,7 @@ namespace PrismSample.ViewModels
     {
         private readonly INavigationService navigationService;
         private readonly ICounterService counterService;
+        private readonly EventAggregator eventAggregator;
 
         private int counter;
         public int Counter
@@ -25,17 +29,48 @@ namespace PrismSample.ViewModels
             set { SetProperty(ref incrementAmount, value); }
         }
 
+        private bool loggedIn;
+        public bool LoggedIn
+        {
+            get { return loggedIn; }
+            set { SetProperty(ref loggedIn, value); }
+        }
+
         public DelegateCommand AddCountCommand { get; set; }
 
-        public WelcomePageViewModel(INavigationService navigationService, ICounterService counterService)
+        public WelcomePageViewModel(INavigationService navigationService,
+            ICounterService counterService, EventAggregator eventAggregator)
         {
             this.navigationService = navigationService;
             this.counterService = counterService;
+            this.eventAggregator = eventAggregator;
 
             Counter = counterService.GetCount();
 
             AddCountCommand = new DelegateCommand(AddCount, CanAddCount)
                 .ObservesProperty(() => IncrementAmount);
+        }
+
+        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
+        {
+            base.OnNavigatedTo(e, viewModelState);
+
+            var authChangedEvent = eventAggregator.GetEvent<AuthChangedEvent>();
+            if (!authChangedEvent.Contains(OnAuthChanged))
+            {
+                authChangedEvent.Subscribe(OnAuthChanged);
+            }
+        }
+
+        public override void OnNavigatingFrom(NavigatingFromEventArgs e, Dictionary<string, object> viewModelState, bool suspending)
+        {
+            base.OnNavigatingFrom(e, viewModelState, suspending);
+
+            var authChangedEvent = eventAggregator.GetEvent<AuthChangedEvent>();
+            if (authChangedEvent.Contains(OnAuthChanged))
+            {
+                authChangedEvent.Unsubscribe(OnAuthChanged);
+            }
         }
 
         private void AddCount()
@@ -52,6 +87,11 @@ namespace PrismSample.ViewModels
         public void Increment()
         {
             Counter = counterService.IncrementCount(1);
+        }
+
+        public void OnAuthChanged(bool state)
+        {
+            LoggedIn = state;
         }
     }
 }

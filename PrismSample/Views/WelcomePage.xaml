@@ -21,6 +21,8 @@
             <Button Content="Add Count" Margin="0,0,0,20" Command="{x:Bind ViewModel.AddCountCommand}"/>
 
             <Button Content="Increment 1" Click="{x:Bind ViewModel.Increment}"/>
+
+            <TextBlock Text="I'm logged in!" Visibility="{x:Bind ViewModel.LoggedIn, Mode=OneWay}"/>
         </StackPanel>
     </Grid>
 </Page>

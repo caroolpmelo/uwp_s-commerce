@@ -1,16 +1,21 @@
-﻿using Prism.Windows.Mvvm;
+﻿using Prism.Events;
+using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
+using PrismSample.Events;
 using PrismSample.Utils;
 
 namespace PrismSample.ViewModels
 {
-    public class MenuViewModel :ViewModelBase
+    public class MenuViewModel : ViewModelBase
     {
         private readonly INavigationService navigationService;
+        private readonly IEventAggregator eventAggregator;
 
-        public MenuViewModel(INavigationService navigationService)
+        public MenuViewModel(INavigationService navigationService,
+            IEventAggregator eventAggregator)
         {
             this.navigationService = navigationService;
+            this.eventAggregator = eventAggregator;
         }
 
         public void NavigateWelcome()
@@ -26,6 +31,16 @@ namespace PrismSample.ViewModels
         public void NavigateFail()
         {
             navigationService.Navigate(PageTokens.STATUS, "Fail");
+        }
+
+        public void Login()
+        {
+            eventAggregator.GetEvent<AuthChangedEvent>().Publish(true);
+        }
+
+        public void Logout()
+        {
+            eventAggregator.GetEvent<AuthChangedEvent>().Publish(false);
         }
     }
 }
