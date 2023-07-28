@@ -21,10 +21,6 @@
             <Button Content="Add Count" Margin="0,0,0,20" Command="{x:Bind ViewModel.AddCountCommand}"/>
 
             <Button Content="Increment 1" Click="{x:Bind ViewModel.Increment}"/>
-            
-            <Button Content="Navigate - Status Fail" Click="{x:Bind ViewModel.NavigateFail}" Margin="0,0,0,20"/>
-
-            <Button Content="Navigate - Status Success" Click="{x:Bind ViewModel.NavigateSuccess}" Margin="0,0,0,20"/>
         </StackPanel>
     </Grid>
 </Page>

@@ -51,15 +51,5 @@ namespace PrismSample.ViewModels
         {
             Counter.Val++;
         }
-
-        public void NavigateSuccess()
-        {
-            navigationService.Navigate(PageTokens.STATUS, "Success");
-        }
-
-        public void NavigateFail()
-        {
-            navigationService.Navigate(PageTokens.STATUS, "Fail");
-        }
     }
 }
