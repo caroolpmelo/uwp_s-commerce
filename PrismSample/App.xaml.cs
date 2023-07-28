@@ -1,4 +1,5 @@
 ﻿using Prism.Unity.Windows;
+using PrismSample.Utils;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 
@@ -13,7 +14,7 @@ namespace PrismSample
 
         protected override Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
         {
-            NavigationService.Navigate("Welcome", null);
+            NavigationService.Navigate(PageTokens.WELCOME, null);
 
             return Task.CompletedTask;
         }
