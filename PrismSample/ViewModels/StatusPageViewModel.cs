@@ -3,7 +3,6 @@ using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
 using PrismSample.Events;
 using PrismSample.Services;
-using System;
 using System.Collections.Generic;
 
 namespace PrismSample.ViewModels
