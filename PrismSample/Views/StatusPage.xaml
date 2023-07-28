@@ -11,6 +11,10 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <TextBlock Text="{x:Bind ViewModel.Status}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
+        <StackPanel>
+            <TextBlock Text="{x:Bind ViewModel.Status}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Margin="20"/>
+
+            <TextBlock Text="{x:Bind ViewModel.Counter}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
+        </StackPanel>
     </Grid>
 </Page>

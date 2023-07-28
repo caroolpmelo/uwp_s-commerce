@@ -14,7 +14,7 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Margin="0,0,0,20">
                 <Run Text="Counter: "/>
-                <Run Text="{x:Bind ViewModel.Counter.Val, Mode=OneWay}" FontWeight="SemiBold"/>
+                <Run Text="{x:Bind ViewModel.Counter, Mode=OneWay}" FontWeight="SemiBold"/>
             </TextBlock>
 
             <TextBox Text="{x:Bind ViewModel.IncrementAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>

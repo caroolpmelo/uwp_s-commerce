@@ -127,6 +127,8 @@
     </Compile>
     <Compile Include="Models\CountValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CounterService.cs" />
+    <Compile Include="Services\ICounterService.cs" />
     <Compile Include="Utils\PageTokens.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
     <Compile Include="ViewModels\StatusPageViewModel.cs" />

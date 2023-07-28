@@ -1,18 +1,17 @@
 ﻿using Prism.Commands;
 using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
-using PrismSample.Models;
-using PrismSample.Utils;
-using System;
+using PrismSample.Services;
 
 namespace PrismSample.ViewModels
 {
     public class WelcomePageViewModel : ViewModelBase
     {
         private readonly INavigationService navigationService;
+        private readonly ICounterService counterService;
 
-        private CountValue counter = new CountValue();
-        public CountValue Counter
+        private int counter;
+        public int Counter
         {
             get { return counter; }
             set { SetProperty(ref counter, value); }
@@ -28,9 +27,12 @@ namespace PrismSample.ViewModels
 
         public DelegateCommand AddCountCommand { get; set; }
 
-        public WelcomePageViewModel(INavigationService navigationService)
+        public WelcomePageViewModel(INavigationService navigationService, ICounterService counterService)
         {
             this.navigationService = navigationService;
+            this.counterService = counterService;
+
+            Counter = counterService.GetCount();
 
             AddCountCommand = new DelegateCommand(AddCount, CanAddCount)
                 .ObservesProperty(() => IncrementAmount);
@@ -38,8 +40,8 @@ namespace PrismSample.ViewModels
 
         private void AddCount()
         {
-            Counter.Val += int.Parse(IncrementAmount);
-            Counter.LastModified = DateTime.Now;
+            var value = int.Parse(IncrementAmount);
+            Counter = counterService.IncrementCount(value);
         }
 
         private bool CanAddCount()
@@ -49,7 +51,7 @@ namespace PrismSample.ViewModels
 
         public void Increment()
         {
-            Counter.Val++;
+            Counter = counterService.IncrementCount(1);
         }
     }
 }

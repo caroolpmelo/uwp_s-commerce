@@ -1,4 +1,5 @@
 ﻿using Prism.Unity.Windows;
+using PrismSample.Services;
 using PrismSample.Utils;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
@@ -27,6 +28,13 @@ namespace PrismSample
             shell.SetFrame(rootFrame);
 
             return shell;
+        }
+
+        protected override void ConfigureContainer()
+        {
+            base.ConfigureContainer();
+
+            RegisterTypeIfMissing(typeof(ICounterService), typeof(CounterService), true);
         }
     }
 }
